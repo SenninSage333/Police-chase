@@ -32,9 +32,9 @@ public class EnemyManager : MonoBehaviour
     void Update()
     {
         // modele pojawiaja sie w randomowej odlegosci z zakresu od 300 do 400 jednostek od gracza
-        spawnZ = playerTransform.position.z + (int)Random.Range(300, 400);
+        spawnZ = playerTransform.position.z + (int)Random.Range(100, 200);
         // liczba modeli na scenie jest ograniczona, pojawiaja sie one w randomowym odstepie czasowym od 2 do 4 sekund
-        if (Time.time >= previousTime + time && activeEnemiesCount <= 7)
+        if (Time.time >= previousTime + time && activeEnemiesCount <= 15)
         {
             SpawnEnemy();
         }

@@ -75,7 +75,6 @@ public class EnemyManager : MonoBehaviour
             float posX = PositionX(tracks[i]);
             GameObject enemy;
             enemy = Instantiate(enemyPrefab[Random.Range(0, 6)]) as GameObject;
-            enemy.transform.SetParent(transform);
             enemy.transform.position = new Vector3(posX, enemy.transform.position.y, spawnZ);
             switch (posX)
             {

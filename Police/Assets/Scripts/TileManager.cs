@@ -92,7 +92,7 @@ public class TileManager : MonoBehaviour
                 randomIndex = Random.Range(3, tilePrefabs.Length);
             } else
             {
-                randomIndex = Random.Range(0, 3);
+                randomIndex = Random.Range(0, 4);
             }
         }
 

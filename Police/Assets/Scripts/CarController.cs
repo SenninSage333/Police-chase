@@ -20,22 +20,9 @@ public class CarController : MonoBehaviour
     private float gearFactor;
     public float revs { get; private set; } //obroty silnika
     public float accel { get; private set; }
-
-    public Text text; //tekst na ekranie (domyslnie predkosc, aktualny bieg i obroty silnika)
-    public Text distance;
     public bool breaking { get; private set; }
     public float distanceTravelled = 0;
     public Vector3 lastPosition;
-    public int x2Cash = 1;
-    public float timer = 0.0f;
-    public float isPicked = 0.0f;
-    public float cash = 0;
-    public bool Travel = false;
-
-    public bool pivot = true;
-    public float goalDistance;
-    public float ClinetCash;
-    public string ClientName;
     public HealthBar healthBar;
     public int health;
     public EnemyManager enemyManager;
@@ -48,44 +35,14 @@ public class CarController : MonoBehaviour
         rb.velocity = new Vector3(0, 0, speedDownLimit / 3.6f);
         lastPosition = transform.position;
         health = maxHealth;
+        healthBar.setMaxHealth(maxHealth);
         distanceTravelled = 0;
     }
 
     void Update()
     {
-        text.text = "speed: " + ((int)currentSpeed + 1).ToString() + "\ngear: " + (gearNum + 1).ToString() + "\nrevs: " + ((int)(revs * 1000)).ToString() + "\ncash: " + cash.ToString() + " $";
         distanceTravelled += Vector3.Distance(transform.position, lastPosition);
-        distance.text = "Distance: " + (distanceTravelled / 1000).ToString("f2") + " KM";
         lastPosition = transform.position;
-        if (distanceTravelled >= goalDistance && pivot)
-        {
-            distanceTravelled = 0;
-            rb.velocity = new Vector3(0, 0.5f, 0);
-            cash += ClinetCash;
-            Travel = true;
-            pivot = false;
-            x2Cash = 1;
-            isPicked = 0.0f;
-            transform.position = new Vector3(0, transform.position.y, 0);
-            SceneManager.LoadScene("GoodTravel");
-        }
-        if (health == 0)
-        {
-            distanceTravelled = 0;
-            rb.velocity = new Vector3(0, 0.5f, 0);
-            pivot = false;
-            x2Cash = 1;
-            isPicked = 0.0f;
-            transform.position = new Vector3(0, transform.position.y, 0);
-            SceneManager.LoadScene("GoodTravel");
-        }
-
-        if (isPicked != 0.0f & (int) timer - isPicked >= 15)
-        {
-            x2Cash = 1;
-            isPicked = 0.0f;
-        }
-        timer += Time.deltaTime;
     }
 
     public void Drive(float v, float b, float h, float vr, float hr)
@@ -124,7 +81,6 @@ public class CarController : MonoBehaviour
             for (int i = 0; i < 2; i++)
             {
                 skid[i].PlayAudio();
-                //StartCoroutine(skid[i].StartSkidTrail());
                 breaking = true;
             }
         }
@@ -133,7 +89,6 @@ public class CarController : MonoBehaviour
             for (int i = 0; i < 2; i++)
             {
                 skid[i].StopAudio();
-                //skid[i].EndSkidTrail();
                 breaking = false;
             }
         }
@@ -153,7 +108,6 @@ public class CarController : MonoBehaviour
         }
     }
 
-    //funkcja zmieniajaca bieg w zaleznosci od aktualnej predkosci
     private void GearChanging()
     {
         float f = Mathf.Abs(currentSpeed / topSpeed);
@@ -171,7 +125,6 @@ public class CarController : MonoBehaviour
         }
     }
 
-    //wspolczynnik przekladni jest znormalizowana reprezentacja biezacej predkosci samochodu w zakresie predkosci aktualnego biegu
     private void CalculateGearFactor()
     {
         float f = (1 / (float)noOfGears);
@@ -179,7 +132,6 @@ public class CarController : MonoBehaviour
         gearFactor = Mathf.Lerp(gearFactor, targetGearFactor, Time.deltaTime * 5f);
     }
 
-    //obliczanie obrotow silnika, wykorzystywane w odtwarzaniu dzwieku przyspieszania i zwalniania
     private void CalculateRevs()
     {
         CalculateGearFactor();
@@ -189,24 +141,18 @@ public class CarController : MonoBehaviour
         revs = ULerp(revsRangeMin, revsRangeMax, gearFactor);
     }
 
-    //niezablokowana wersja funkcji Lerp pozwalająca na przekraczanie wartości zakresu od-do
     private static float ULerp(float from, float to, float value)
     {
         return (1.0f - value) * from + value * to;
     }
 
-    //funkcja dodawania zakrzywionego odchylenia w kierunku 1 dla wartości z zakresu 0-1
     private static float CurveFactor(float factor)
     {
         return 1 - (1 - factor) * (1 - factor);
     }
-    //fukncja usuwania pieniedzy i dodawania
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            health -= 5;
-            healthBar.setHealth(health);
-        }
+        health -= 5;
+        healthBar.setHealth(health);
     }
 }

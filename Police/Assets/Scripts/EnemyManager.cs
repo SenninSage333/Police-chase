@@ -14,7 +14,6 @@ public class EnemyManager : MonoBehaviour
 
     void Start()
     {
-        // lista activeEnemies zawiera w sobie 4 listy odpowiadajace torom poruszania sie modeli, kazda z tych list zawiera modele poruszajace sie tylko po jednym pasie
         activeEnemies = new List<GameObject>[4];
         for (int i = 0; i < 4; i++)
         {
@@ -31,9 +30,7 @@ public class EnemyManager : MonoBehaviour
 
     void Update()
     {
-        // modele pojawiaja sie w randomowej odlegosci z zakresu od 300 do 400 jednostek od gracza
         spawnZ = playerTransform.position.z + (int)Random.Range(100, 200);
-        // liczba modeli na scenie jest ograniczona, pojawiaja sie one w randomowym odstepie czasowym od 2 do 4 sekund
         if (Time.time >= previousTime + time && activeEnemiesCount <= 15)
         {
             SpawnEnemy();
@@ -58,8 +55,6 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    // funkcja odpowiedziala za spawn modeli, w zaleznosi od liczby aktywych modeli na scenie funkcja moze stworzyc od 1 do 3 modeli
-    // 
     void SpawnEnemy()
     {
         HashSet<int> h = new HashSet<int>();
@@ -85,13 +80,10 @@ public class EnemyManager : MonoBehaviour
             }
             activeEnemiesCount++;
         }
-        // zapis czasu spawnu modeli
         previousTime = Time.time;
-        // czas do nastepnego spawnu
         time = Random.Range(2, 4);
     }
 
-    // funkcja odpowiedzialna za usuniecie podanego modelu ze sceny, podawany jest rowniez numer toru po ktorym poruszal sie model
     void DeleteEnemy(GameObject enemy, int tab)
     {
         Destroy(enemy);
@@ -99,7 +91,6 @@ public class EnemyManager : MonoBehaviour
         activeEnemiesCount--;
     }
 
-    // funkcja zwracajaca tor poruszania sie modelu w zaleznosci od przekazanej do funkcji liczby
     float PositionX(int track)
     {
         float result = -1.99f;

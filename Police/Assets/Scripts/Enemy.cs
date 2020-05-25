@@ -27,12 +27,10 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        // jeśli na torze jest tylko jeden model jego prędkość jest stała, jeśli jest więcej jego prędkość zależy od innych modeli
         speed = CapSpeed();
         rb.velocity = rb.velocity.normalized * speed;
     }
 
-    // jeśli model zostanie uderzony przez gracza będzie starał się utrzymac swój pasu ruchu
     void FixedUpdate()
     {
         Vector3 target = new Vector3(track, rb.position.y, rb.position.z);
@@ -40,8 +38,6 @@ public class Enemy : MonoBehaviour
         rb.MovePosition(target);
     }
 
-    // funkcja odpowiedzialna za eliminację zderzeń modeli na torzem
-    // jesli model dogoni inny model znajdujący się przed nim i odległość między nimi wynosi 7 jednostek, jego prędkość jest równa prędkości modelu z przodu
     private float CapSpeed()
     {
         int enemyInFront = myTrack.IndexOf(this.gameObject);

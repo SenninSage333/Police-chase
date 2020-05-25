@@ -43,6 +43,10 @@ public class CarController : MonoBehaviour
     {
         distanceTravelled += Vector3.Distance(transform.position, lastPosition);
         lastPosition = transform.position;
+        if (health <= 0)
+        {
+            SceneManager.LoadScene("Start");
+        }
     }
 
     public void Drive(float v, float b, float h, float vr, float hr)

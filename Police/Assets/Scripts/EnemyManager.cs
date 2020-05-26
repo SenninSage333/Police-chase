@@ -40,7 +40,7 @@ public class EnemyManager : MonoBehaviour
 
     void Update()
     {
-        spawnZ = playerTransform.position.z + (int)Random.Range(150, 200);
+        spawnZ = playerTransform.position.z + (int)Random.Range(170, 220);
         if (spawnZ <= robber.transform.position.z + 10f && spawnZ >= robber.transform.position.z - 10f)
         {
             spawnZ += 30f;

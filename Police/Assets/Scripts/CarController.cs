@@ -24,10 +24,12 @@ public class CarController : MonoBehaviour
     public Vector3 lastPosition;
     public HealthBar healthBar;
     public int health;
-
+    public float savedTime;
+    public Robber robber;
 
     void Start()
     {
+        savedTime = Time.time;
         breaking = false;
         rb = GetComponent<Rigidbody>();
         rb.velocity = new Vector3(0, 0, speedDownLimit / 3.6f);
@@ -35,6 +37,7 @@ public class CarController : MonoBehaviour
         health = maxHealth;
         healthBar.setMaxHealth(maxHealth);
         distanceTravelled = 0;
+        robber = GameObject.Find("Robber").GetComponent<Robber>();
     }
 
     void Update()
@@ -43,6 +46,12 @@ public class CarController : MonoBehaviour
         lastPosition = transform.position;
         if (health <= 0)
         {
+            PlayerPrefs.SetString("message", "You crashed your car!");
+            SceneManager.LoadScene("Restart");
+        }
+        else if (robber.transform.position.z - transform.position.z > 1000f)
+        {
+            PlayerPrefs.SetString("message", "The robber ran away!");
             SceneManager.LoadScene("Restart");
         }
     }
@@ -156,6 +165,8 @@ public class CarController : MonoBehaviour
     {
         if (other.gameObject.tag == "Robber")
         {
+            savedTime = Time.time - savedTime;
+            PlayerPrefs.SetFloat("time", savedTime);
             SceneManager.LoadScene("Win");
         }
         else

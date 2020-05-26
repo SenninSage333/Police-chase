@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Robber : MonoBehaviour
 {
-    List<GameObject>[] enemies;
+    private List<GameObject>[] enemies;
     private int track = 1;
     private float[] tracks = { -1.99f, 2.23f, 6.49f, 10.7f };
-    bool state = true;
-    float nextX;
-    float speed;
+    private bool state = true;
+    private float nextX;
+    private float speed;
     private Rigidbody rb;
     void Start()
     {

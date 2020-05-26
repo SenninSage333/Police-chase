@@ -31,7 +31,7 @@ public class EnemyManager : MonoBehaviour
     void Update()
     {
         spawnZ = playerTransform.position.z + (int)Random.Range(100, 200);
-        if (Time.time >= previousTime + time && activeEnemiesCount <= 15)
+        if (Time.time >= previousTime + time && activeEnemiesCount <= 10)
         {
             SpawnEnemy();
         }

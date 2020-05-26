@@ -25,7 +25,6 @@ public class CarController : MonoBehaviour
     public Vector3 lastPosition;
     public HealthBar healthBar;
     public int health;
-    public EnemyManager enemyManager;
 
 
     void Start()
@@ -45,7 +44,7 @@ public class CarController : MonoBehaviour
         lastPosition = transform.position;
         if (health <= 0)
         {
-            SceneManager.LoadScene("Start");
+            SceneManager.LoadScene("Restart");
         }
     }
 

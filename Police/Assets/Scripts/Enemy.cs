@@ -28,7 +28,7 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         speed = CapSpeed();
-        rb.velocity = rb.velocity.normalized * speed;
+        rb.velocity = Vector3.forward * speed;
     }
 
     void FixedUpdate()

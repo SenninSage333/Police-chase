@@ -35,7 +35,7 @@ public class Enemy : MonoBehaviour
     {
         Vector3 target = new Vector3(track, rb.position.y, rb.position.z);
         Vector3 toTarget = target - rb.position;
-        rb.MovePosition(target);
+        //rb.MovePosition(target);
     }
 
     private float CapSpeed()
@@ -44,7 +44,7 @@ public class Enemy : MonoBehaviour
         for (int i = 0; i < myTrack.Count; i++)
         {
             if (myTrack[i].transform.position.z - transform.position.z <= 0) continue;
-            if (transform.position.z + 10f > myTrack[i].transform.position.z)
+            if (transform.position.z + 15f > myTrack[i].transform.position.z)
             {
                 enemyInFront = i;
                 break;

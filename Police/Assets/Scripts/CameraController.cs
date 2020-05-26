@@ -11,7 +11,7 @@ public class CameraController : MonoBehaviour
     {
         car = GameObject.FindGameObjectWithTag("Player");
         offset = new Vector3(0, 10, -10) - new Vector3(0, 0.5f, 0);
-        transform.rotation = Quaternion.Euler(35f, 0, 0);
+        transform.rotation = Quaternion.Euler(33f, 0, 0);
     }
     void LateUpdate()
     {

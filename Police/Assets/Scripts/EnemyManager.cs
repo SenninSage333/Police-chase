@@ -11,14 +11,24 @@ public class EnemyManager : MonoBehaviour
     private int activeEnemiesCount; // ilosc aktywnych modeli innych samochodow na scenie, zmienna pomocnicza
     private float time;
     private float previousTime;
+    private GameObject robber;
 
-    void Start()
+    private void Awake()
     {
         activeEnemies = new List<GameObject>[4];
         for (int i = 0; i < 4; i++)
         {
             activeEnemies[i] = new List<GameObject>();
         }
+    }
+    void Start()
+    {
+        robber = GameObject.FindGameObjectWithTag("Robber").gameObject;
+        // activeEnemies = new List<GameObject>[4];
+        // for (int i = 0; i < 4; i++)
+        // {
+        //     activeEnemies[i] = new List<GameObject>();
+        // }
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         spawnZ = Random.Range(7, 10);
         SpawnEnemy();
@@ -30,7 +40,11 @@ public class EnemyManager : MonoBehaviour
 
     void Update()
     {
-        spawnZ = playerTransform.position.z + (int)Random.Range(100, 200);
+        spawnZ = playerTransform.position.z + (int)Random.Range(150, 200);
+        if (spawnZ <= robber.transform.position.z + 10f && spawnZ >= robber.transform.position.z - 10f)
+        {
+            spawnZ += 30f;
+        }
         if (Time.time >= previousTime + time && activeEnemiesCount <= 10)
         {
             SpawnEnemy();
@@ -69,7 +83,7 @@ public class EnemyManager : MonoBehaviour
         {
             float posX = PositionX(tracks[i]);
             GameObject enemy;
-            enemy = Instantiate(enemyPrefab[Random.Range(0, 6)]) as GameObject;
+            enemy = Instantiate(enemyPrefab[Random.Range(0, 7)]) as GameObject;
             enemy.transform.position = new Vector3(posX, enemy.transform.position.y, spawnZ);
             switch (posX)
             {

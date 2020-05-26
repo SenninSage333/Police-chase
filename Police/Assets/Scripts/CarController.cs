@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 
@@ -155,7 +154,14 @@ public class CarController : MonoBehaviour
     }
     private void OnCollisionEnter(Collision other)
     {
-        health -= 5;
-        healthBar.setHealth(health);
+        if (other.gameObject.tag == "Robber")
+        {
+            SceneManager.LoadScene("Win");
+        }
+        else
+        {
+            health -= 5;
+            healthBar.setHealth(health);
+        }
     }
 }

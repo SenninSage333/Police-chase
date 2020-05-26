@@ -10,16 +10,12 @@ public class TileManager : MonoBehaviour
     private Transform playerTransform;
     private float spawnZ = -64.0f;
     private float tileLength = 64.0f;
-    private int amountOfTiles = 3;
+    private int amountOfTiles = 10;
 
     private float safeZone = 80.0f;
     private float distance;
 
     private int LastPrefab = 0;
-
-    private bool choose = false;
-    int previous = 500;
-
 
     private List<GameObject> activeTiles;
 
@@ -38,13 +34,6 @@ public class TileManager : MonoBehaviour
 
     void Update()
     {
-        distance = GameObject.FindGameObjectWithTag("Player").GetComponent<CarController>().distanceTravelled;
-
-        if (distance > previous)
-        {
-            choose = !choose;
-            previous += 500;
-        }
         if (playerTransform.position.z - safeZone > (spawnZ - amountOfTiles * tileLength))
         {
             SpawnTile();
@@ -77,14 +66,7 @@ public class TileManager : MonoBehaviour
 
         while (randomIndex == LastPrefab)
         {
-            if (choose)
-            {
-                randomIndex = Random.Range(3, tilePrefabs.Length);
-            }
-            else
-            {
-                randomIndex = Random.Range(0, 4);
-            }
+            randomIndex = Random.Range(0, 4);
         }
 
         LastPrefab = randomIndex;

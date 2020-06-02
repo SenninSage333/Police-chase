@@ -31,14 +31,7 @@ public class Enemy : MonoBehaviour
         rb.velocity = Vector3.forward * speed;
     }
 
-    void FixedUpdate()
-    {
-        Vector3 target = new Vector3(track, rb.position.y, rb.position.z);
-        Vector3 toTarget = target - rb.position;
-        //rb.MovePosition(target);
-    }
-
-    private float CapSpeed()
+        private float CapSpeed()
     {
         int enemyInFront = myTrack.IndexOf(this.gameObject);
         for (int i = 0; i < myTrack.Count; i++)

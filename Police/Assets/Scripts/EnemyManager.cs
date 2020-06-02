@@ -24,11 +24,6 @@ public class EnemyManager : MonoBehaviour
     void Start()
     {
         robber = GameObject.FindGameObjectWithTag("Robber").gameObject;
-        // activeEnemies = new List<GameObject>[4];
-        // for (int i = 0; i < 4; i++)
-        // {
-        //     activeEnemies[i] = new List<GameObject>();
-        // }
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         spawnZ = Random.Range(7, 10);
         SpawnEnemy();

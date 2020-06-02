@@ -9,12 +9,14 @@ public class Play : MonoBehaviour
     public Text text;
     private void Start()
     {
-        if (SceneManager.GetActiveScene().name == "Win") {
+        if (SceneManager.GetActiveScene().name == "Win")
+        {
             text = GameObject.Find("Time").GetComponent<Text>();
             text.text = (PlayerPrefs.GetFloat("time") / 60f).ToString("0.00") + " minutes!";
         }
 
-        if (SceneManager.GetActiveScene().name == "Restart") {
+        if (SceneManager.GetActiveScene().name == "Restart")
+        {
             text = GameObject.Find("Message").GetComponent<Text>();
             text.text = PlayerPrefs.GetString("message");
         }
@@ -27,5 +29,10 @@ public class Play : MonoBehaviour
     public void Menu()
     {
         SceneManager.LoadScene("Start");
+    }
+
+    public void Exit()
+    {
+        Application.Quit();
     }
 }
